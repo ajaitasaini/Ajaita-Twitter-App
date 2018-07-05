@@ -9,10 +9,12 @@
 #import "TimelineViewController.h"
 #import "APIManager.h"
 #import "TweetCell.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 @property (strong, nonatomic) NSArray *tweetArray;
 @property (weak, nonatomic) IBOutlet UITableView *cellTableView;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -21,9 +23,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(beginRefresh) forControlEvents:UIControlEventValueChanged];
+    [self.cellTableView insertSubview:self.refreshControl atIndex:0];
+    
     self.cellTableView.dataSource = self;
     self.cellTableView.delegate = self;
-    self.cellTableView.rowHeight = 100;
+    self.cellTableView.rowHeight = 200;
     
     
     // Get timeline
@@ -60,15 +66,40 @@
     return cell;
 }
 
-/*
+- (void)beginRefresh {
+    [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
+        if (tweets) {
+            NSLog(@"😎😎😎 Successfully loaded home timeline");
+            self.tweetArray = tweets;
+            for (Tweet *dictionary in tweets) {
+                NSString *text = dictionary.text;
+                NSLog(@"%@", text);
+            }
+            [self.cellTableView reloadData];
+            
+        } else {
+            NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
+            
+        }
+        [self.refreshControl endRefreshing];
+        
+    }];
+}
+
+- (void)didTweet:(Tweet *)tweet {
+    [self beginRefresh];
+}
+
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
 }
-*/
+
 
 
 @end

@@ -7,6 +7,8 @@
 //
 
 #import "TweetCell.h"
+#import "User.h"
+#import "UIImageView+AFNetworking.h"
 
 @implementation TweetCell
 
@@ -23,8 +25,14 @@
 
 - (void)setTweet {
     self.profileName.text = self.tweet.user.screenName;
-    self.tweetContent.text = self.tweet.user.description;
+    self.tweetContent.text = self.tweet.text;
     //self.profileView.image = self.tweet.user.
+    self.profileView.image = nil;
+    [self.profileView setImageWithURL:self.tweet.user.profileURL];
+    [self.replyButton setTitle:self.tweet.idStr forState: UIControlStateNormal];
+    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+    
+    //self.replyButton.titleLabel = self.tweet.idStr;
 }
 
 @end
