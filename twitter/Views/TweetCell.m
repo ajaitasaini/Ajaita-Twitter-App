@@ -9,6 +9,7 @@
 #import "TweetCell.h"
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
+#import "APIManager.h"
 
 @implementation TweetCell
 
@@ -33,6 +34,21 @@
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
     
     //self.replyButton.titleLabel = self.tweet.idStr;
+}
+
+- (IBAction)didTapFavorite:(id)sender {
+    self.tweet.favorited = YES;
+    self.tweet.favoriteCount += 1;
+    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+    
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+        }
+    }];
 }
 
 @end
