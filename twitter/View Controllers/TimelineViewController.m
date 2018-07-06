@@ -16,6 +16,7 @@
 #import "TTTAttributedLabel.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TTTAttributedLabelDelegate>
+
 @property (strong, nonatomic) NSArray *tweetArray;
 @property (weak, nonatomic) IBOutlet UITableView *cellTableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;

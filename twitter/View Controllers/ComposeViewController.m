@@ -10,7 +10,7 @@
 #import "APIManager.h"
 #import "Tweet.h"
 
-@interface ComposeViewController ()
+@interface ComposeViewController () <UITextViewDelegate>
 
 @end
 
@@ -24,6 +24,11 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    self.composeTweetText.text = @"";
+    self.composeTweetText.textColor = [UIColor blackColor];
 }
 
 - (IBAction)closeButton:(id)sender {

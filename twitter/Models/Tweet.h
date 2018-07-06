@@ -10,6 +10,7 @@
 #import "User.h"
 
 @interface Tweet : NSObject
+
 @property (nonatomic, strong) NSString *idStr; // For favoriting, retweeting & replying
 @property (strong, nonatomic) NSString *text; // Text content of tweet
 @property (nonatomic) int favoriteCount; // Update favorite count label
