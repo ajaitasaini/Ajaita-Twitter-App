@@ -23,8 +23,6 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 - (void)setTweet {
@@ -39,12 +37,12 @@
     self.dateCreated.text = self.tweet.createdAtString;
     
     
-    
-//    label.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
-//    label.delegate = self; // Delegate methods are called when the user taps on a link (see `TTTAttributedLabelDelegate` protocol)
-//    
-//    label.text = self.tweet.text;
-//    self.tweetContent.text = label.text;
+//
+//    attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
+//    attributedLabel.delegate = self; // Delegate methods are called when the user taps on a link (see `TTTAttributedLabelDelegate` protocol)
+//
+//    attributedLabel.text = self.tweet.text;
+//    self.tweetContent.text = attributedLabel.text;
 
     
     //NSDate *timeAgoDate = self.tweet.createdAtString;
@@ -58,11 +56,6 @@
     
     NSDate *timeAgoDate = [NSDate dateWithTimeIntervalSinceNow:-159887];
     NSLog(@"Time Ago: %@", timeAgoDate.timeAgoSinceNow);
-}
-
-- (void)calculateTime {
-    NSArray *time = [self.tweet.createdAtString componentsSeparatedByString:@"/"];
-    
 }
 
 - (IBAction)didTapFavorite:(id)sender {
@@ -81,7 +74,6 @@
         
         
     } else {
-    
         [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
             if(error){
                 NSLog(@"Error favoriting tweet: %@", error.localizedDescription);

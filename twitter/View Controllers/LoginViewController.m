@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    //[[APIManager shared] logout];
+    [[APIManager shared] logout];
 }
 
 - (void)didReceiveMemoryWarning {

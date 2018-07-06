@@ -19,6 +19,7 @@
 @property (strong, nonatomic) User *user; // Contains name, screenname, etc. of tweet author
 @property (strong, nonatomic) NSString *createdAtString; // Display date
 @property (strong, nonatomic) User *retweetedByUser;  // user who retweeted if tweet is retweet
+@property (strong, nonatomic) NSString *imageURL;
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)dictionaries;
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;

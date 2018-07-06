@@ -30,6 +30,7 @@
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
+        //self.imageURL = [dictionary.allValues[@"media_url_https"]];
     }
     
     NSDictionary *user = dictionary[@"user"];
@@ -39,10 +40,6 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"E MMM d HH:mm:ss Z y";
     NSDate *date = [formatter dateFromString:createdAtOriginalString];
-    formatter.dateStyle = NSDateFormatterShortStyle;
-    formatter.timeStyle = NSDateFormatterNoStyle;
-    //self.createdAtString = [formatter stringFromDate:date];
-    
     NSDate *currentTime = [NSDate date];
     NSInteger secondsApart = [currentTime secondsFrom:date];
     

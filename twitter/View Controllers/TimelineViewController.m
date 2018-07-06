@@ -34,7 +34,7 @@
     
     self.cellTableView.dataSource = self;
     self.cellTableView.delegate = self;
-    self.cellTableView.rowHeight = 200;
+    self.cellTableView.rowHeight = UITableViewAutomaticDimension;
     self.attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     
     self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; //
