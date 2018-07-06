@@ -37,18 +37,65 @@
 }
 
 - (IBAction)didTapFavorite:(id)sender {
-    self.tweet.favorited = YES;
-    self.tweet.favoriteCount += 1;
-    [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+    if (self.tweet.favorited){
+        [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+                self.tweet.favorited = NO;
+                self.tweet.favoriteCount -= 1;
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+            }
+        }];
+        
+        
+    } else {
     
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-        }
-    }];
+        [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+                self.tweet.favorited = YES;
+                self.tweet.favoriteCount += 1;
+                [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+            }
+        }];
+    }
+}
+
+- (IBAction)didTapRetweet:(id)sender {
+    if (self.tweet.retweeted){
+        [[APIManager shared] unretweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully retweeting the following Tweet: %@", tweet.text);
+                self.tweet.retweeted = NO;
+                self.tweet.retweetCount -= 1;
+                [self.retweetButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.retweetCount] forState: UIControlStateNormal];
+            }
+        }];
+        
+        
+    } else {
+        
+        [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+            }
+            else{
+                NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
+                self.tweet.retweeted = YES;
+                self.tweet.retweetCount += 1;
+                [self.retweetButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.retweetCount] forState: UIControlStateNormal];
+            }
+        }];
+    }
 }
 
 @end
