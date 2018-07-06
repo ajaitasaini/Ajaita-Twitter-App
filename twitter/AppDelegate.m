@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "APIManager.h"
+#import "LoginViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,8 +21,8 @@
     
     if ([[APIManager shared] isAuthorized]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UINavigationController *navigationController = [storyboard instantiateViewControllerWithIdentifier:@"TweetsNavigationController"];
-        self.window.rootViewController = navigationController;
+        LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+        self.window.rootViewController = loginViewController;
     }
     
     return YES;

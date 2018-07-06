@@ -18,5 +18,6 @@
 @interface ComposeViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITextView *composeTweetText;
 @property (nonatomic, weak) id<ComposeViewControllerDelegate> delegate;
+@property (weak, nonatomic) IBOutlet UITextView *charactersLeftText;
 
 @end

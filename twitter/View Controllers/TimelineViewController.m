@@ -10,11 +10,16 @@
 #import "APIManager.h"
 #import "TweetCell.h"
 #import "ComposeViewController.h"
+#import "AppDelegate.h"
+#import "LoginViewController.h"
+#import "DateTools.h"
+#import "TTTAttributedLabel.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, TTTAttributedLabelDelegate>
 @property (strong, nonatomic) NSArray *tweetArray;
 @property (weak, nonatomic) IBOutlet UITableView *cellTableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic) TTTAttributedLabel *attributedLabel;
 
 @end
 
@@ -30,6 +35,10 @@
     self.cellTableView.dataSource = self;
     self.cellTableView.delegate = self;
     self.cellTableView.rowHeight = 200;
+    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    
+    self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; //
+    self.attributedLabel.delegate = self;
     
     
     // Get timeline
@@ -41,6 +50,7 @@
                 NSString *text = dictionary.text;
                 NSLog(@"%@", text);
             }
+            
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -62,6 +72,10 @@
     
     cell.tweet = self.tweetArray[indexPath.row];
     [cell setTweet];
+    
+    self.attributedLabel.text = cell.tweet.text;
+    cell.tweet.text = self.attributedLabel.text;
+    
     
     return cell;
 }
@@ -88,6 +102,14 @@
 
 - (void)didTweet:(Tweet *)tweet {
     [self beginRefresh];
+}
+
+- (IBAction)logoutButton:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
+    appDelegate.window.rootViewController = loginViewController;
 }
 
 

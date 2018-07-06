@@ -29,6 +29,7 @@
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
         self.retweeted = [dictionary[@"retweeted"] boolValue];
+        self.createdAtString = dictionary[@"utc_offset"];
     }
     
     NSDictionary *user = dictionary[@"user"];

@@ -10,6 +10,9 @@
 #import "User.h"
 #import "UIImageView+AFNetworking.h"
 #import "APIManager.h"
+#import "Tweet.h"
+#import "DateTools.h"
+
 
 @implementation TweetCell
 
@@ -25,15 +28,41 @@
 }
 
 - (void)setTweet {
-    self.profileName.text = self.tweet.user.screenName;
+    self.profileName.text = self.tweet.user.name;
     self.tweetContent.text = self.tweet.text;
     //self.profileView.image = self.tweet.user.
     self.profileView.image = nil;
     [self.profileView setImageWithURL:self.tweet.user.profileURL];
-    [self.replyButton setTitle:self.tweet.idStr forState: UIControlStateNormal];
+    //[self.replyButton setTitle:self.tweet.idStr forState: UIControlStateNormal];
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+    self.screenName.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
+    self.dateCreated.text = self.tweet.createdAtString;
+    
+    
+    
+//    label.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
+//    label.delegate = self; // Delegate methods are called when the user taps on a link (see `TTTAttributedLabelDelegate` protocol)
+//    
+//    label.text = self.tweet.text;
+//    self.tweetContent.text = label.text;
+
+    
+    //NSDate *timeAgoDate = self.tweet.createdAtString;
+    //NSDate *timeAgoDate = self.tweet;
+    //NSDateFormatter
+    //lnbllrihlgbckgself.dateCreated.text = self.tweet.createdAtString;
+    //createdAtString;
+    //self.userActivity.userInfo.
     
     //self.replyButton.titleLabel = self.tweet.idStr;
+    
+    NSDate *timeAgoDate = [NSDate dateWithTimeIntervalSinceNow:-159887];
+    NSLog(@"Time Ago: %@", timeAgoDate.timeAgoSinceNow);
+}
+
+- (void)calculateTime {
+    NSArray *time = [self.tweet.createdAtString componentsSeparatedByString:@"/"];
+    
 }
 
 - (IBAction)didTapFavorite:(id)sender {

@@ -43,6 +43,19 @@
     }];
 }
 
+//- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+//    // Set the max character limit
+//    int characterLimit = 140;
+//    
+//    // Construct what the new text would be if we allowed the user's latest edit
+//    NSString *newText = [self.composeTweetText.text stringByReplacingCharactersInRange:range withString:text];
+//    
+//    c//haractersLeftText = sizeof(newText);
+//    
+//    // The new text should be allowed? True/False
+//    return newText.length < characterLimit;
+//}
+
 /*
 #pragma mark - Navigation
 
