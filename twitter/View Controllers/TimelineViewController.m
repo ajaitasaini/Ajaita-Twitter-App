@@ -35,7 +35,7 @@
     self.cellTableView.dataSource = self;
     self.cellTableView.delegate = self;
     self.cellTableView.rowHeight = 200;
-    TTTAttributedLabel *label = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    self.attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
     
     self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; //
     self.attributedLabel.delegate = self;
