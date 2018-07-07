@@ -21,11 +21,6 @@
     [[APIManager shared] logout];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)didTapLogin:(id)sender {
     [[APIManager shared] loginWithCompletion:^(BOOL success, NSError *error) {
         if (success) {

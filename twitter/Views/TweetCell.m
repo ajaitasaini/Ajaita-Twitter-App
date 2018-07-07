@@ -16,15 +16,13 @@
 
 @implementation TweetCell
 
+#pragma mark - Lifecycle
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    self.tweetContent = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.tweetContent.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-//    self.tweetContent.dataDetectorTypes = UIDataDetectorTypeLink;
-//    self.tweetContent.delegate = self;
 }
 
+
+#pragma mark - Set values
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 }
@@ -33,7 +31,6 @@
     self.profileName.text = self.tweet.user.name;
     [self.profileName sizeToFit];
     self.tweetContent.text = self.tweet.text;
-    //[self.profileView]
     self.profileView.image = nil;
     [self.profileView setImageWithURL:self.tweet.user.profileURL];
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
@@ -53,6 +50,8 @@
     [self layoutIfNeeded];
 }
 
+
+#pragma mark - User Input
 - (IBAction)didTapFavorite:(id)sender {
     if (self.tweet.favorited){
         [[APIManager shared] unfavorite:self.tweet completion:^(Tweet *tweet, NSError *error) {

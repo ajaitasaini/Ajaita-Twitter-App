@@ -16,15 +16,16 @@
 
 @implementation ComposeViewController
 
+#pragma mark - Lifecycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.composeTweetText.delegate = self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
+
+#pragma mark - User input
 
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     self.composeTweetText.text = @"";
@@ -48,11 +49,12 @@
     }];
 }
 
+
+#pragma mark - Text View Delegate
+
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    // Set the max character limit
     int characterLimit = 140;
-    
-    // Construct what the new text would be if we allowed the user's latest edit
+
     NSString *newText = [self.composeTweetText.text stringByReplacingCharactersInRange:range withString:text];
     
     if (newText.length < characterLimit){
@@ -61,7 +63,6 @@
         self.charactersLeftText.text = @"Not enough characters";
     }
     
-    // The new text should be allowed? True/False
     return newText.length < characterLimit;
 }
 

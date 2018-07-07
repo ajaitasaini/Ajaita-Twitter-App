@@ -20,11 +20,12 @@
 @property (strong, nonatomic) NSArray *tweetArray;
 @property (weak, nonatomic) IBOutlet UITableView *cellTableView;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
-@property (nonatomic) TTTAttributedLabel *attributedLabel;
 
 @end
 
 @implementation TimelineViewController
+
+#pragma mark - Lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -37,11 +38,6 @@
     self.cellTableView.delegate = self;
     self.cellTableView.rowHeight = UITableViewAutomaticDimension;
     self.cellTableView.estimatedRowHeight = 150;
-    
-    self.attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-    self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
-    self.attributedLabel.delegate = self;
-    
     
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
@@ -60,10 +56,8 @@
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+
+#pragma mark - TableView Delegate
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return self.tweetArray.count;
@@ -74,13 +68,11 @@
     
     cell.tweet = self.tweetArray[indexPath.row];
     [cell setTweet];
-    
-//    self.attributedLabel.text = cell.tweet.text;
-//    cell.tweet.text = self.attributedLabel.text;
-    
-    
     return cell;
 }
+
+
+#pragma mark - User Input
 
 - (void)beginRefresh {
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
