@@ -34,6 +34,7 @@
     self.profileView.image = nil;
     [self.profileView setImageWithURL:self.tweet.user.profileURL];
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
+    [self.retweetButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.retweetCount] forState: UIControlStateNormal];
     self.screenName.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
     self.dateCreated.text = self.tweet.createdAtString;
     
