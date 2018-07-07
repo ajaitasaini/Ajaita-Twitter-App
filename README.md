@@ -48,7 +48,7 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. how to have more organized code
-2. how to debug code
+2. how to debug code more efficiently -- spent a lot of time dealing with bugs that were generic about the issue
 
 ## Video Walkthrough
 
@@ -61,6 +61,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
+- had a lot of issues regarding auto layout and constraints
+- attribute label was not working properly, had to find a workaround using UITextView
+
 
 ## Credits
 
