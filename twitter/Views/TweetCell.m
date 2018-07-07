@@ -19,6 +19,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    self.tweetContent = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    self.tweetContent.enabledTextCheckingTypes = NSTextCheckingTypeLink;
+//    self.tweetContent.dataDetectorTypes = UIDataDetectorTypeLink;
+//    self.tweetContent.delegate = self;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -27,35 +31,26 @@
 
 - (void)setTweet {
     self.profileName.text = self.tweet.user.name;
+    [self.profileName sizeToFit];
     self.tweetContent.text = self.tweet.text;
-    //self.profileView.image = self.tweet.user.
+    //[self.profileView]
     self.profileView.image = nil;
     [self.profileView setImageWithURL:self.tweet.user.profileURL];
-    //[self.replyButton setTitle:self.tweet.idStr forState: UIControlStateNormal];
     [self.favoriteButton setTitle:[NSString stringWithFormat:@"%d", self.tweet.favoriteCount] forState: UIControlStateNormal];
     self.screenName.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
     self.dateCreated.text = self.tweet.createdAtString;
     
-    
-//
-//    attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; // Automatically detect links when the label text is subsequently changed
-//    attributedLabel.delegate = self; // Delegate methods are called when the user taps on a link (see `TTTAttributedLabelDelegate` protocol)
-//
-//    attributedLabel.text = self.tweet.text;
-//    self.tweetContent.text = attributedLabel.text;
-
-    
-    //NSDate *timeAgoDate = self.tweet.createdAtString;
-    //NSDate *timeAgoDate = self.tweet;
-    //NSDateFormatter
-    //lnbllrihlgbckgself.dateCreated.text = self.tweet.createdAtString;
-    //createdAtString;
-    //self.userActivity.userInfo.
-    
-    //self.replyButton.titleLabel = self.tweet.idStr;
-    
     NSDate *timeAgoDate = [NSDate dateWithTimeIntervalSinceNow:-159887];
     NSLog(@"Time Ago: %@", timeAgoDate.timeAgoSinceNow);
+    
+    self.testTextView.text = self.tweet.text;
+    self.testTextView.dataDetectorTypes = UIDataDetectorTypeLink;
+    
+    CGSize descriptionSize = self.testTextView.contentSize;
+    
+    [self.heightConstraint setConstant:descriptionSize.height];
+    
+    [self layoutIfNeeded];
 }
 
 - (IBAction)didTapFavorite:(id)sender {

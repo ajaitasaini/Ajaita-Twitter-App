@@ -36,9 +36,10 @@
     self.cellTableView.dataSource = self;
     self.cellTableView.delegate = self;
     self.cellTableView.rowHeight = UITableViewAutomaticDimension;
-    self.attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    self.cellTableView.estimatedRowHeight = 150;
     
-    self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink; //
+    self.attributedLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
+    self.attributedLabel.enabledTextCheckingTypes = NSTextCheckingTypeLink;
     self.attributedLabel.delegate = self;
     
     
@@ -74,8 +75,8 @@
     cell.tweet = self.tweetArray[indexPath.row];
     [cell setTweet];
     
-    self.attributedLabel.text = cell.tweet.text;
-    cell.tweet.text = self.attributedLabel.text;
+//    self.attributedLabel.text = cell.tweet.text;
+//    cell.tweet.text = self.attributedLabel.text;
     
     
     return cell;
